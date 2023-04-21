@@ -11,6 +11,7 @@ This folder contains my personal solutions to the assigments for the Computer Gr
   - [A07](#a07)
   - [A09](#a09)
   - [A10](#a10)
+  - [A11](#a11)
 - [Author](#author)
 
 
@@ -59,10 +60,13 @@ Now the assignment should show two grey squares, a horizontal and a vertical one
 ### A10
 The solution to this assignment required editing two shader files. For this reason, the folder for this assignment contains another folder, called *shaders*. To successfully run the solution replace the whole *shaders* folder with the one provided and compile the files contained therein with the same commands written above for A09.
 
+### A11
+The folder structure is similar to that for A10: the folder contains the 3 modified shaders, which have to be compiled with the usual *glslc* commands. Given the folder structure, it is advisable not to include in the project the *.obj* files which can be found in the *models* folder after unzipping the archive. Including such files might cause a VS compilation error (LNK1136) claiming them to be corrupted.
+
 ## Author
 - [Gibellini Federico](https://github.com/gblfrc)
 
-[^inclusion]: A note of caution: VS generally does not import all the files in folders recursively. In most of the cases, not importing such files does not prevent the projects to be run; in other cases, such as those in which the solutions are to put in a specific folder, it is simply enough to open the folder from the solution explorer and directly include the specific files.
+[^inclusion]: A note of caution: VS generally does not import all the files in folders recursively. In most of the cases, not importing such files does not prevent the projects to run; in other cases, such as those in which the solutions are to put in a specific folder, it is simply enough to open the folder from the solution explorer and directly include the specific files. 
 [^solutions]: In most of the cases, there is a single file to replace in the main project folder. In very few occasions more than a file has to be replaced. For all those cases, please consult the [Additional notes](#additional-notes) section.
 [^glslc]: The *glslc* command is not a native command in Windows. However, this compiler is usually distributed and installed with the Vulkan SDK. To make the command accessible from any directory, browse for the related executable in the Vulkan SDK *bin* folder and add the folder to the *PATH* environment variable. 
 [^a07-camera-rot]: In order to avoid unpleasant effects, the camera roll was bound to 20°.
