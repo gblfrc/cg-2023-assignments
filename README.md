@@ -9,7 +9,6 @@ This folder contains my personal solutions to the assigments for the Computer Gr
 - [Additional notes](#additional-notes)
   - [A00](#a00)
   - [A07](#a07)
-  - [A08](#a08)
   - [A09](#a09)
   - [A10](#a10)
 - [Author](#author)
@@ -35,22 +34,30 @@ The author solved and run the assignments with Visual Studio 2022 (VS) on a mach
 
 ## Additional notes
 This section contains supplementary notes towards a successful run and a complete understanding of the proposed solutions to the assignments.
+
 ### A00
 This is the introductory assignment to the course and its aim is to let the student set-up correctly the Vulkan environment for the following assigments. For this reason, no solution file is inserted in the related folder.
+
 ### A07
---- Complete this section ---
-### A08
---- Complete this section ---
+For this assignment the aim is to implement a full 3rd person controller. The basic tasks for this assignment are expressed in the related *.pdf*, which can be found after unzipping its related archive. However, in the provided solution, some additional tasks, proposed by the professor during the lecture, have been implemented; these are:
+- Damping on camera: the camera does not arrest abruptly when the character stops moving.
+- Indipendent camera rotation: the camera can be rotated without affecting the character and the character can be seen from different angles.
+- Movement-driven character rotation: the character orientation depends on the direction in which he is moving. 
+- Damping on character: the character dooes not rotate abruptly when changing movement direction.
+- Camera roll: the camera can rotate on its facing axis[^a07-camera-rot].
+- Flying character: the character can detach from ground and move on a line which is orthogonal to the ground; a small check prevents it from going under the ground level.
+- Dead zone: the camera waits for the character to change its position of a specific distance before following him
+
 ### A09
 Similarly to the case of [A00](#a00), the folder for this assignment comes with no solution file. The reason behind this choice is the simplicity of the task provided in the assignment, i.e., the compilation of shaders with the *glslc* compiler. To solve this assigment, follow the instructions in the [Running](#running) section. Attempting to compile and run the assignment at this point will result in an error. To solve it, open a terminal window in the *shaders* folder and run the following commands[^glslc]:
 
 `glslc PhongShader.vert -o PhongVert.spv`
 `glslc PhongShader.frag -o PhongFrag.spv`
 
-Now the assignment should show two grey squares, a horizontal and a vertical one. Repeat the same process changing the names of the input shaders to the ones including *v2*; when running the program with the new shaders you should see a [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set). 
+Now the assignment should show two grey squares, a horizontal and a vertical one. Repeat the same process changing the names of the input shaders to the ones including *.v2*; when running the program with the new shaders you should see a [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set). 
 
 ### A10
---- Complete this section ---
+The solution to this assignment required editing two shader files. For this reason, the folder for this assignment contains another folder, called *shaders*. To successfully run the solution replace the whole *shaders* folder with the one provided and compile the files contained therein with the same commands written above for A09.
 
 ## Author
 - [Gibellini Federico](https://github.com/gblfrc)
@@ -58,3 +65,4 @@ Now the assignment should show two grey squares, a horizontal and a vertical one
 [^inclusion]: A note of caution: VS generally does not import all the files in folders recursively. In most of the cases, not importing such files does not prevent the projects to be run; in other cases, such as those in which the solutions are to put in a specific folder, it is simply enough to open the folder from the solution explorer and directly include the specific files.
 [^solutions]: In most of the cases, there is a single file to replace in the main project folder. In very few occasions more than a file has to be replaced. For all those cases, please consult the [Additional notes](#additional-notes) section.
 [^glslc]: The *glslc* command is not a native command in Windows. However, this compiler is usually distributed and installed with the Vulkan SDK. To make the command accessible from any directory, browse for the related executable in the Vulkan SDK *bin* folder and add the folder to the *PATH* environment variable. 
+[^a07-camera-rot]: In order to avoid unpleasant effects, the camera roll was bound to 20°.
