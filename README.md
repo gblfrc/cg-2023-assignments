@@ -10,8 +10,8 @@ This folder contains my personal solutions to the assigments for the Computer Gr
   - [A00](#a00)
   - [A07](#a07)
   - [A09](#a09)
-  - [A10](#a10)
-  - [A11](#a11)
+  - [A10 - A13](#a10---a13)
+- [Troubleshooting](#troubleshooting)
 - [Author](#author)
 
 
@@ -57,11 +57,12 @@ Similarly to the case of [A00](#a00), the folder for this assignment comes with 
 
 Now the assignment should show two grey squares, a horizontal and a vertical one. Repeat the same process changing the names of the input shaders to the ones including *.v2*; when running the program with the new shaders you should see a [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set). 
 
-### A10
-The solution to this assignment required editing two shader files. For this reason, the folder for this assignment contains another folder, called *shaders*. To successfully run the solution replace the whole *shaders* folder with the one provided and compile the files contained therein with the same commands written above for A09.
+### A10 - A13
+The solutions to these assignments required editing shader files. For this reason, the folders for these assignments contain another one, called *shaders*. To successfully run the solutions, replace the files in the *shaders* folder (extracted from the archive) with the ones published in this repo and compile such files with similar commands as the ones written above for A09. Usually, the required shader names are listed in the *.pdf* file describing the assignment task.
 
-### A11
-The folder structure is similar to that for A10: the folder contains the 3 modified shaders, which have to be compiled with the usual *glslc* commands. Given the folder structure, it is advisable not to include in the project the *.obj* files which can be found in the *models* folder after unzipping the archive. Including such files might cause a VS compilation error (LNK1136) claiming them to be corrupted.
+## Troubleshooting
+- Starting with A11, the provided archive includes also a *models* folder containing *.obj* files. It is advisable not to include such files in the VS project for this might cause the throw of a VS compilation error (LNK1136) claiming them to be corrupted.
+- It might happen, upon compiling the project with VS, that an error (C4996) is thrown for the presence of an unsafe function *sprintf* in the header file *stb_image_write.h*. To solve this issue, simply replace such function with *sprintf_s*.
 
 ## Author
 - [Gibellini Federico](https://github.com/gblfrc)
