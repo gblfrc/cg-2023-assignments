@@ -24,6 +24,8 @@ const float g = 3;			// target distance of the spotlight
 const float cosout = 0.5;	// cosine of the outer angle of the spotlight
 const float cosin  = 0.95;	// cosine of the inner angle of the spotlight
 
+const float gamma = 160.0f;	// cosine power for the Blinn specular reflection
+
 // coefficients for the spehrical harmonics ambient light term
 const vec3 C00  = vec3( .38f, .43f, .45f)/8.0f;
 const vec3 C1m1 = vec3( .29f, .36f, .41f)/8.0f;
@@ -44,10 +46,6 @@ void main() {
 	vec3 ME = texture(texEmit, fragUV).rgb;		// emission color
 
 	// Write the shader here
-
-	float gamma = 1000.0f;						// gamma exponent for Blinn specular model; initially not provided, 
-												// determined by trial-and-error to obtain a result similar to the expected one
-
 	// Compute missing values for spotlight
 	vec3 L = normalize(gubo.lightPos-fragPos);		// light direction
 	float pointLightDecay = pow(g/length(gubo.lightPos-fragPos), beta);
@@ -62,7 +60,7 @@ void main() {
 	vec3 H = normalize(L+V);
 	vec3 specular = MS * pow(clamp(dot(N,H), 0.0f, 1.0f), gamma);
 	// Ambient
-	vec3 LA = C00 + N.x*C11 + N.y*C1m1 + N.z*C10 + (N.x * N.y)*C2m2 + (N.y * N.z)*C1m1 + (N.z * N.x)*C11 + (N.x*N.x - N.y*N.y)*C22 + (3*N.z*N.z -1)*C20;
+	vec3 LA = C00 + N.x*C11 + N.y*C1m1 + N.z*C10 + (N.x * N.y)*C2m2 + (N.y * N.z)*C2m1 + (N.z * N.x)*C21 + (N.x*N.x - N.y*N.y)*C22 + (3*N.z*N.z -1)*C20;
 	vec3 ambient = LA * MA;
 
 	
