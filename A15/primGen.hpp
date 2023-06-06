@@ -136,7 +136,7 @@ void Assignment15::createSphereMesh(std::vector<Vertex>& vDef, std::vector<uint3
 	// The primitive built here is a sphere of radius 1, centered in the origin, on which the Mars texture is applied seamless.
 	float radius = 1.0f;
 	int slices = 32;
-	int rings = 24;
+	int rings = 32;
 	float sliceAngleStep = M_PI / (slices / 2);
 	float ringAngleStep = M_PI / rings;
 	float uStep = 1.0f / slices;
@@ -163,7 +163,6 @@ void Assignment15::createSphereMesh(std::vector<Vertex>& vDef, std::vector<uint3
 			glm::vec3 pos = glm::vec3(x, y, z);
 			glm::vec3 norm = glm::normalize(pos);
 			float u = uStep * j;
-			std::cout << u << "\n";
 			vDef.push_back({ {pos.x, pos.y, pos.z}, {norm.x, norm.y, norm.z}, {u,v} });
 		}
 	}
