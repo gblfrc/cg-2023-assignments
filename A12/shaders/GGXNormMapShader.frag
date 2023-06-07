@@ -18,6 +18,9 @@ layout(binding = 2) uniform GlobalUniformBufferObject {
 	vec3 eyePos;
 } gubo;
 
+float chiPlus(float a);
+float g1(vec3 X, vec3 N, vec3 H, float alpha2);
+
 vec3 BRDF(vec3 V, vec3 N, vec3 L, vec3 Md, float F0, float metallic, float roughness) {
 	//vec3 V  - direction of the viewer
 	//vec3 N  - normal vector to the surface
@@ -26,9 +29,34 @@ vec3 BRDF(vec3 V, vec3 N, vec3 L, vec3 Md, float F0, float metallic, float rough
 	//float F0 - Base color for the Fresnel term
 	//float metallic - parameter that mixes the diffuse with the specular term.
 	//                 in particular, parmeter K seen in the slides is: float K = 1.0f - metallic;
-	//float roughness - Material roughness (parmeter rho in the slides).
+	//float roughness - Material roughness (parameter rho in the slides).
 	//specular color Ms is not passed, and implicitely considered white: vec3 Ms = vec3(1.0f);
+	
 
+	//Alternative implemented based on:
+	//https://graphicscompendium.com/theory/08-cook-torrance-ggx
+	// Cook-Torrance GGX
+	// parameters
+	float k = 1.0f - metallic;
+	float alpha = pow(roughness, 2);
+	float alpha2 = pow(alpha, 2);
+	float pi = radians(180);
+	vec3 Ms = vec3(1.0f)*6;
+	// vectors and dot products
+	vec3 H = normalize(L+V);
+	float VdotN = clamp(dot(V,N), 0.00001f, 1.0f);
+	float LdotN = clamp(dot(L,N), 0.00001f, 1.0f);
+	float NdotH = clamp(dot(N,H), 0.00001f, 1.0f);
+	float VdotH = clamp(dot(V,H), 0.00001f, 1.0f);
+	// Diffuse
+	vec3 diffuse = Md * clamp(LdotN, 0.0f, 1.0f);
+	// Specular
+	float D = chiPlus(NdotH) * (alpha2 / (pi * pow(pow(NdotH, 2) * (alpha2 - 1) + 1, 2)));
+	float F = F0 + (1-F0) * pow(1 - VdotH, 5);
+	float G = g1(V, N, H, alpha2) * g1(L, N, H, alpha2);
+	vec3 specular = Ms * ((D * F * G) / (4 * VdotN));
+
+	/* Alternative implemented from course slides 
 	// Cook-Torrance GGX
 	float k = 1.0f - metallic;
 	float rho2 = pow(roughness, 2);
@@ -45,7 +73,8 @@ vec3 BRDF(vec3 V, vec3 N, vec3 L, vec3 Md, float F0, float metallic, float rough
 	float gV = 2 / (1 + sqrt(1 + rho2 * ((1 - dotNV2)/ dotNV2)));
 	float gL = 2 / (1 + sqrt(1 + rho2 * ((1 - dotNL2)/ dotNL2)));
 	float G = gV * gL;
-	vec3 specular = Ms * ((D * F * G) / 4 * clamp(dot(V,N), 0.0f, 1.0f)); 
+	vec3 specular = Ms * ((D * F * G) / (4 * clamp(dot(V,N), 0.0f, 1.0f))); 
+	*/
 
 	return k*diffuse + (1-k)*specular;
 }
@@ -74,4 +103,15 @@ void main() {
 	vec3 Ambient = albedo * 0.05f * ao;
 	
 	outColor = vec4(clamp(0.95 * DiffSpec * lightColor.rgb + Ambient,0.0,1.0), 1.0f);
+}
+
+float chiPlus(float a){
+	return sign(a) - 0.5 * (1-sign(a)) * sign(a);
+}
+
+float g1(vec3 X, vec3 N, vec3 H, float alpha2){
+	float XdotN = clamp(dot(X,N), 0.00001f, 1.0f);
+	float XdotH = clamp(dot(X,H), 0.00001f, 1.0f);
+	float tan2ThetaX = pow((1-XdotN), 2) / pow(XdotN, 2);
+	return chiPlus(XdotH/XdotN) * (2/(1+sqrt(1+alpha2*tan2ThetaX)));
 }
