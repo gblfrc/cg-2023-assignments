@@ -28,9 +28,12 @@ const float gamma = 160.0f;	// cosine power for the Blinn specular reflection
 
 // coefficients for the spehrical harmonics ambient light term
 const vec3 C00  = vec3( .38f, .43f, .45f)/8.0f;
-const vec3 C1m1 = vec3( .29f, .36f, .41f)/8.0f;
-const vec3 C10  = vec3( .04f, .03f, .01f)/8.0f;
-const vec3 C11  = vec3(-.10f,-.10f,-.09f)/8.0f;
+//const vec3 C1m1 = vec3( .29f, .36f, .41f)/8.0f;
+const vec3 C1m1 = vec3( .04f, .03f, .01f)/8.0f;
+//const vec3 C10  = vec3( .04f, .03f, .01f)/8.0f;
+const vec3 C10  = vec3(-.10f,-.10f,-.09f)/8.0f;
+//const vec3 C11  = vec3(-.10f,-.10f,-.09f)/8.0f;
+const vec3 C11  = vec3( .29f, .36f, .41f)/8.0f;
 const vec3 C2m2 = vec3(-.06f,-.06f,-.04f)/8.0f;
 const vec3 C2m1 = vec3( .01f,-.01f,-.05f)/8.0f;
 const vec3 C20  = vec3(-.09f,-.13f,-.15f)/8.0f;
