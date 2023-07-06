@@ -39,7 +39,7 @@ void GameLogic(Assignment07 *A, float Ar, glm::mat4 &ViewPrj, glm::mat4 &World) 
 	A->getSixAxis(deltaT, m, r, fire);
 
 	// Game Logic implementation
-	// Current Player Position - statc variables make sure thattheri value remain unchanged in subsequent calls to the procedure
+	// Current Player Position - static variables make sure that their value remains unchanged in subsequent calls to the procedure
 	static glm::vec3 Pos = StartingPosition;
 	static float roll, pitch, yaw = 0;
 	//static glm::vec3 cOld = Pos;	// previous position needed for damping on camera
