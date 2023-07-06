@@ -15,10 +15,10 @@ void SetupMatrices(Assignment03 *A) {
 	S = T1*S1*inverse(T1);												// compute transformation matrix as in the slides
 	A->Matrix(1, S); // sets the matrix corresponding to piece 1
 
-	// To solve the puzzle: scale 2x on an axis oriented 45 degrees between the x and z axis and passing through point (1,0,0)
+	// To solve the puzzle: scale 3x on an axis oriented 45 degrees between the x and z axis and passing through point (1,0,0)
 	glm::mat4 R2 = glm::rotate(glm::mat4(1), glm::radians(45.0f), glm::vec3(0, 1, 0));	// rotate around axis y 45 degrees
 	glm::mat4 T2 = glm::translate(glm::mat4(1), glm::vec3(1,0,0));						// translate (1,0,0)
-	glm::mat4 S2 = glm::scale(glm::mat4(1), glm::vec3(3,1,1));							// scale 3x on the z axis
+	glm::mat4 S2 = glm::scale(glm::mat4(1), glm::vec3(3,1,1));							// scale 3x on the x axis
 	S = T2*R2*S2*inverse(R2)*inverse(T2);												// compute transformation matrix as in the slides
 	A->Matrix(2, S); // sets the matrix corresponding to piece 2
 
