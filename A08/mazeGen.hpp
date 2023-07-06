@@ -56,7 +56,6 @@ void Assignment08::createMazeMesh(int row, int col, char **maze) {
 		}
 	}
 
-	printf("initial count: % d\n", count);
 	// push vertices for vertical walls
 	for (c = 0; c < col; c++) {
 		for (r = 0; r < row; r++) {
